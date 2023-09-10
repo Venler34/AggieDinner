@@ -13,13 +13,25 @@
                 <div id="findDate">
                     <h1>Reservation</h1>
                     <form id="reserveDate">
-                        <input required id="name" type="text" name="name" placeholder="Name">
-                        <input required id="size" type="number" placeholder="Enter party size" min="1" max="8">
+                        <input id="name" type="text" name="name" placeholder="Name">
+                        <input id="size" type="number" placeholder="Enter party size" min="1" max="8">
                         <div>
                             <label for="date" value="Date" step="360000">Date:</label>
-                            <input required id="date" type="date" value="Date">
+                            <input id="date" type="date" value="Date">
                         </div>
                         <input type="submit" value="Find Times">
+                    </form>
+                    <button id="removeReservationButton">Remove Reservation</button>
+                </div>
+                <div class="box" id="removeDate">
+                    <h1>Remove Reservation</h1>
+                    <form id="removeReservation">
+                        <input type="text" id="removeName" name="name" placeholder="Name">
+                        <div>
+                            <label for="date" value="Date" step="360000">Date:</label>
+                            <input id="removeDateDate" type="date" value="Date">
+                        </div>
+                        <input type="submit">
                     </form>
                 </div>
                 <div class="box" id="findTime">

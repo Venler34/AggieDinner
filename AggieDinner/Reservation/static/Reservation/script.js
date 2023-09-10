@@ -6,16 +6,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const findTimeForm = document.querySelector('#reserveTime')
     const findTimeArea = document.querySelector('#findTime')
     const confirmationForm = document.querySelector('#confirmation')
+    const removeDateForm = document.querySelector('#removeDate')
 
     const times = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", "7 AM","8 AM", "9 AM", "10 AM", "11 AM",
                     "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"]
 
 
-    // Fix date
-    // TODO
-
-    // Hide Time Form
+    // Hide all other forms / areas
     findTimeArea.style.display = "none"
+    removeDateForm.style.display = "none"
+    confirmationForm.style.display = "none"
+
+    createNiceDate = (date) => {
+        return date[5] + date[6] + date[7] + date[8] + date[9] + date[4] + date[0] + date[1] + date[2] + date[3];
+    }
 
     findDayForm.addEventListener('submit', function(event) {
         event.preventDefault()
@@ -29,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
         findTimeArea.style.display = "block";
         findDayArea.style.display = "none";
         confirmationForm.style.display = "none";
+        removeDateForm.style.display = "none"
 
         // display greeting 
         findTimeArea.querySelector('#greeting').innerHTML = `Hi, ${reserver}!`;
@@ -76,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const time = times[timeSlot];
 
         // display date better
-        const betterDate = date[5] + date[6] + date[7] + date[8] + date[9] + date[4] + date[0] + date[1] + date[2] + date[3]
+        const betterDate = createNiceDate(date)
 
         document.querySelector('#confirmation-description').innerHTML = `${myName}, you have a reservation at Aggie Dinner
         with a party size of ${partySize} on ${betterDate} at ${time}. We hope to see you there.`
@@ -85,11 +90,43 @@ document.addEventListener('DOMContentLoaded', function() {
         findTimeArea.style.display = "none";
         findDayArea.style.display = "none";
         confirmationForm.style.display = "block";
+        removeDateForm.style.display = "none"
     })
 
     document.querySelector('#goBack').addEventListener('click', function() {
         findTimeArea.style.display = "none";
         findDayArea.style.display = "block";
         confirmationForm.style.display = "none";
+    })
+
+    // display remove reservation form
+    document.querySelector('#removeReservationButton').addEventListener('click', function() {
+        findTimeArea.style.display = "none";
+        findDayArea.style.display = "none";
+        confirmationForm.style.display = "none";
+        removeDateForm.style.display = "block"
+    })
+
+    // submit remove reservation
+    document.querySelector('#removeReservation').addEventListener('submit', function(event) {
+        event.preventDefault()
+
+        const name = document.querySelector('#removeName').value;
+        const date = document.querySelector('#removeDateDate').value;
+
+        fetch('removeReservation', {
+            method: "POST",
+            body: JSON.stringify({
+                "name": name,
+                "date": date
+            })
+        }).then(response => response.json())
+        .then(data => {
+            if(data.removed) {
+                alert(`Removed the reservations for ${name} on ${createNiceDate(date)}`)
+            } else {
+                alert("Could not find name with date.")
+            }
+        })
     })
 })

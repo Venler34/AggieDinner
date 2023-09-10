@@ -29,6 +29,21 @@ def getReservations(request):
     arr = checkForTimes(date, size)
     return JsonResponse(arr, safe=False)
 
+@csrf_exempt
+def removeReservation(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        name = data.get("name")
+        date = data.get("date")
+
+        print("Name and date", name)
+
+        # call function to remove date
+        removed = removeReservationFunction(name, date)
+        return JsonResponse({"removed" : removed})
+    
+    return JsonResponse({})
+
 def get_table_size(party_size):
     if party_size == 1:
         return 1
@@ -64,3 +79,21 @@ def checkForTimes(date, size):
 def inputReservation(name, date, time, size):
     tableSize = get_table_size(size)
     holder[date][time][name] = dict(size = tableSize)
+
+def removeReservationFunction(name, date):
+    if not (date in holder.keys()):
+        return False
+    else:
+        listTimesToDel = list()
+        for time, times in holder[date].items():
+            for names,v in times.items():
+                if names == name:
+                    print(f'Attempt deletion. Names: {names}; Name: {name}')
+                    print(f'Time: {time}')
+                    listTimesToDel.append(time)
+        for i, v in enumerate(listTimesToDel):
+            print(f'i:{i}, v: {v}')
+            del holder[date][v][name]
+
+        return True
+
