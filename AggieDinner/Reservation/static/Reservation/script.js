@@ -9,6 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const times = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", "7 AM","8 AM", "9 AM", "10 AM", "11 AM",
                     "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"]
+
+
+    // Fix date
+    // TODO
+
     // Hide Time Form
     findTimeArea.style.display = "none"
 
@@ -16,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault()
 
         // all return strings
-        date = this.querySelector('#date').value
+        date = this.querySelector('#date').value;
         reserver = this.querySelector('#name').value
         partySize = this.querySelector('#size').value
 
@@ -48,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     })
 
+    // When submit time
     findTimeForm.addEventListener('submit', function(event) {
         event.preventDefault()
 
@@ -55,11 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const myName = this.querySelector('#greeting').dataset.name;
         const date = this.querySelector('#greeting').dataset.date;
         const partySize = this.querySelector('#partySize').dataset.size;
-
-        console.log(timeSlot)
-        console.log(myName)
-        console.log(date)
-        console.log(partySize)
 
         fetch('saveReservation', {
             method: "POST", 
@@ -74,8 +75,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // display time better
         const time = times[timeSlot];
 
+        // display date better
+        const betterDate = date[5] + date[6] + date[7] + date[8] + date[9] + date[4] + date[0] + date[1] + date[2] + date[3]
+
         document.querySelector('#confirmation-description').innerHTML = `${myName}, you have a reservation at Aggie Dinner
-        with a party size of ${partySize} on ${date} at ${time}. We hope to see you there.`
+        with a party size of ${partySize} on ${betterDate} at ${time}. We hope to see you there.`
 
         // Display confirmation
         findTimeArea.style.display = "none";
