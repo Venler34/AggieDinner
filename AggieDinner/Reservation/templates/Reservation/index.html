@@ -22,6 +22,7 @@
                         <input type="submit" value="Find Times">
                     </form>
                     <button id="removeReservationButton">Remove Reservation</button>
+                    <button id="getReservations">Get Reservations</button>
                 </div>
                 <div class="box" id="removeDate">
                     <h1>Remove Reservation</h1>
@@ -33,6 +34,17 @@
                         </div>
                         <input type="submit">
                     </form>
+                </div>
+                <div class="box" id="accessReservations">
+                    <h1>Get Reservations</h1>
+                    <form id="accessReservations-form">
+                        <input type="number" name="time" placeholder="Time: " id="getTime" min="0" max="23">
+                        <input type="date" name="date" id="getDate">
+                        <input type="submit">
+                    </form>
+                    <div id="reservations-display">
+
+                    </div>
                 </div>
                 <div class="box" id="findTime">
                     <form id="reserveTime">

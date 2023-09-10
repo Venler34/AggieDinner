@@ -20,6 +20,7 @@ def saveReservation(request):
         time = data.get("time")
 
         inputReservation(name, date, int(time), int(partySize))
+        print(holder)
     return JsonResponse(holder)
 
 def getReservations(request):
@@ -36,13 +37,21 @@ def removeReservation(request):
         name = data.get("name")
         date = data.get("date")
 
-        print("Name and date", name)
-
         # call function to remove date
         removed = removeReservationFunction(name, date)
         return JsonResponse({"removed" : removed})
     
     return JsonResponse({})
+
+def getReservationForDateTime(request):
+    date = request.GET.get("date")
+    time = int(request.GET.get("time"))
+    print(holder)
+    print(date, time)
+
+    list = getReservationAtTime(date, time)
+
+    return JsonResponse(list, safe=False)
 
 def get_table_size(party_size):
     if party_size == 1:
@@ -96,4 +105,15 @@ def removeReservationFunction(name, date):
             del holder[date][v][name]
 
         return True
+    
+def getReservationAtTime(date, time):
+    outputList = list()
 
+    if not (date in holder.keys()):
+        return []
+    if not (time in holder[date].keys()):
+        return []
+    
+    for name, v in holder[date][time].items():
+        outputList.append(f'Name: {name}, Table Size: {v["size"]}')
+    return outputList

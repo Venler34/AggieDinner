@@ -5,5 +5,6 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("saveReservation", views.saveReservation, name="saveReservation"),
     path("getReservation", views.getReservations, name="getReservation"),
-    path("removeReservation", views.removeReservation, name="removeReservation")
+    path("removeReservation", views.removeReservation, name="removeReservation"),
+    path("getReservationForDateTime", views.getReservationForDateTime, name="getReservationForDateTime")
 ]
