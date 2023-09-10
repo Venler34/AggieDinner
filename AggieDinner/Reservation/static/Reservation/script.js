@@ -66,4 +66,9 @@ document.addEventListener('DOMContentLoaded', function() {
             })
         }).then(response => console.log(response))
     })
+
+    document.querySelector('#goBack').addEventListener('click', function() {
+        findTimeArea.style.display = "none";
+        findDayArea.style.display = "block";
+    })
 })
