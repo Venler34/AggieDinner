@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const findDayArea = document.querySelector('#findDate')
     const findTimeForm = document.querySelector('#reserveTime')
     const findTimeArea = document.querySelector('#findTime')
+    const confirmationForm = document.querySelector('#confirmation')
+
+    const times = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", "7 AM","8 AM", "9 AM", "10 AM", "11 AM",
+                    "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"]
     // Hide Time Form
     findTimeArea.style.display = "none"
 
@@ -19,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // display find time area
         findTimeArea.style.display = "block";
         findDayArea.style.display = "none";
+        confirmationForm.style.display = "none";
 
         // display greeting 
         findTimeArea.querySelector('#greeting').innerHTML = `Hi, ${reserver}!`;
@@ -36,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const dropDown = findTimeForm.querySelector('#times');
             data.forEach(hour => {
                 const block = document.createElement('option');
-                block.textContent = hour;
+                block.textContent = times[parseInt(hour)];
                 block.value = hour;
                 dropDown.append(block);
             })
@@ -64,11 +69,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 "partySize" : partySize,
                 "time" : timeSlot
             })
-        }).then(response => console.log(response))
+        })
+
+        // display time better
+        const time = times[timeSlot];
+
+        document.querySelector('#confirmation-description').innerHTML = `${myName}, you have a reservation at Aggie Dinner
+        with a party size of ${partySize} on ${date} at ${time}. We hope to see you there.`
+
+        // Display confirmation
+        findTimeArea.style.display = "none";
+        findDayArea.style.display = "none";
+        confirmationForm.style.display = "block";
     })
 
     document.querySelector('#goBack').addEventListener('click', function() {
         findTimeArea.style.display = "none";
         findDayArea.style.display = "block";
+        confirmationForm.style.display = "none";
     })
 })
