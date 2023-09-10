@@ -1,0 +1,21 @@
+#size {
+    width: 120px;
+}
+
+#page {
+    display: flex;
+    min-width: 100px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#reserveDate {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#reserveDate > * {
+    margin: 5px;
+}

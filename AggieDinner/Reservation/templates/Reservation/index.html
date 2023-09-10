@@ -1,13 +1,35 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
     <head>
         <title>Reservation</title>
+        <script type="text/javascript" src="{% static 'Reservation/script.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'Reservation/style.css' %}">
     </head>
     <body>
-        <h1>Reservation</h1>
-        <form>
-            <input type="text" name="name">
-            <input type="submit">
-        </form>
+        <div id="page">
+            <div id="findDate">
+                <h1>Reservation</h1>
+                <form id="reserveDate">
+                    <input required id="name" type="text" name="name" placeholder="Name">
+                    <input required id="size" type="number" placeholder="Enter party size" min="1" max="8">
+                    <div>
+                        <label for="date" value="Date" step="360000">Date:</label>
+                        <input required id="date" type="date" value="Date">
+                    </div>
+                    <input type="submit" value="Find Times">
+                </form>
+            </div>
+            <div id="findTime">
+                <form id="reserveTime">
+                    <h1 id="greeting"></h1>
+                    <h4 id="partySize"></h4>
+                    <label for="times">Time Slot:</label>
+                    <select id="times"></select>
+                    <input type="submit">
+                </form>
+            </div>
+        </div>
     </body>
 </html>
